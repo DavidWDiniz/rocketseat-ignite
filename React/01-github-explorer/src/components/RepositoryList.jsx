@@ -2,14 +2,8 @@ import {RepositoryItem} from "./RepositoryItem";
 import '../styles/repositories.scss';
 import {useEffect, useState} from "react";
 
-const repository = {
-    name: 'Google',
-    description: 'Search Engine',
-    link: 'https://www.google.com/'
-}
-
 export function RepositoryList() {
-    const [repositories, setRepositories] = useState()
+    const [repositories, setRepositories] = useState([])
 
     useEffect(() => {
         fetch("https://api.github.com/orgs/rocketseat/repos")
@@ -21,10 +15,9 @@ export function RepositoryList() {
         <section className="repository-list">
             <h1>Lista de repositórios</h1>
             <ul>
-                <RepositoryItem repository={repository}/>
-                <RepositoryItem repository={repository}/>
-                <RepositoryItem repository={repository}/>
-                <RepositoryItem repository={repository}/>
+                {repositories.map(repository => {
+                    return <RepositoryItem key={repository.name} repository={repository}/>
+                })}
             </ul>
         </section>
     )
