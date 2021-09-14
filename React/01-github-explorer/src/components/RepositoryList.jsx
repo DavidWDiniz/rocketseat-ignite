@@ -1,30 +1,20 @@
-const repositoryName = "Google"
+import {RepositoryItem} from "./RepositoryItem";
+
+const repository = {
+    name: 'Google',
+    description: 'Search Engine',
+    link: 'https://www.google.com/'
+}
+
 export function RepositoryList () {
     return (
         <section className="repository-list">
             <h1>Lista de repositórios</h1>
             <ul>
-                <li>
-                    <strong>{repositoryName}</strong>
-                    <p>Forms in React</p>
-                    <a href="">
-                        Acessar repositório
-                    </a>
-                </li>
-                <li>
-                    <strong>Facebook</strong>
-                    <p>Forms in React</p>
-                    <a href="">
-                        Acessar repositório
-                    </a>
-                </li>
-                <li>
-                    <strong>Amazon</strong>
-                    <p>Forms in React</p>
-                    <a href="">
-                        Acessar repositório
-                    </a>
-                </li>
+                <RepositoryItem repository={repository} />
+                <RepositoryItem repository={repository} />
+                <RepositoryItem repository={repository} />
+                <RepositoryItem repository={repository} />
             </ul>
         </section>
     )
