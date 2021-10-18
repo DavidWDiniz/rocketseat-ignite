@@ -1,6 +1,7 @@
-import styles from "./styles.module.scss";
 import {SignInButton} from "../SignInButton";
 import {ActiveLink} from "../ActiveLink";
+
+import styles from "./styles.module.scss";
 
 export function Header() {
   return (
@@ -15,8 +16,8 @@ export function Header() {
             <a>Posts</a>
           </ActiveLink>
         </nav>
-        <SignInButton />
+        <SignInButton/>
       </div>
     </header>
-  )
+  );
 }

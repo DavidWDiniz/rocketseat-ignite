@@ -12,7 +12,7 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async session(session){
+    async session(session) {
       try {
         const userActiveSubscription = await fauna.query(
           q.Get(

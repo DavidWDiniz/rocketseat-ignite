@@ -24,11 +24,11 @@ export async function saveSubscription(subscriptionId: string, customerId: strin
     priceId: subscription.items.data[0].price.id
   }
 
-  if(createAction) {
+  if (createAction) {
     await fauna.query(
       q.Create(
         q.Collection("subscriptions"),
-        { data: subscriptionData}
+        {data: subscriptionData}
       )
     );
   } else {
