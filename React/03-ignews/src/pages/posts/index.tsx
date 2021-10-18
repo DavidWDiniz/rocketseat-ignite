@@ -4,6 +4,7 @@ import {GetStaticProps} from "next";
 import {getPrismicClient} from "../../services/prismic";
 import Prismic from "@prismicio/client";
 import {RichText} from "prismic-dom";
+import Link from "next/link";
 
 type Post = {
   slug: string;
@@ -25,11 +26,13 @@ export default function Posts({posts}: PostsProps) {
       <main className={styles.container}>
         <div className={styles.posts}>
           {posts.map(post => (
-            <a href="#" key={post.slug}>
-              <time>{post.updatedAt}</time>
-              <strong>{post.title}</strong>
-              <p>{post.except}</p>
-            </a>
+            <Link href={`/posts/${post.slug}`} key={post.slug}>
+              <a>
+                <time>{post.updatedAt}</time>
+                <strong>{post.title}</strong>
+                <p>{post.except}</p>
+              </a>
+            </Link>
           ))}
         </div>
       </main>
@@ -42,7 +45,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const response = await prismic.query([
     Prismic.predicates.at("document.type", "publication")
-  ],{
+  ], {
     fetch: ["publication.title", "publication.content"],
     pageSize: 100,
   });
