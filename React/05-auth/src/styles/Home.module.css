@@ -5,3 +5,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.container input {
+  margin-bottom: 8px;
+}
