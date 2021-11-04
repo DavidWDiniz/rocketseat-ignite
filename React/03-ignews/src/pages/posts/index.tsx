@@ -9,7 +9,7 @@ import Link from "next/link";
 type Post = {
   slug: string;
   title: string;
-  except: string;
+  excerpt: string;
   updatedAt: string;
 }
 
@@ -30,7 +30,7 @@ export default function Posts({posts}: PostsProps) {
               <a>
                 <time>{post.updatedAt}</time>
                 <strong>{post.title}</strong>
-                <p>{post.except}</p>
+                <p>{post.excerpt}</p>
               </a>
             </Link>
           ))}
@@ -54,7 +54,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       slug: post.uid,
       title: RichText.asText(post.data.title),
-      except: post.data.content.find(content => content.type === "paragraph")?.text ?? "",
+      excerpt: post.data.content.find(content => content.type === "paragraph")?.text ?? "",
       updatedAt: new Date(post.last_publication_date).toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "long",
