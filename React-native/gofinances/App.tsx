@@ -4,7 +4,8 @@ import {useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold} from "
 
 import theme from "./scr/global/styles/theme";
 import AppLoading from "expo-app-loading";
-import {Register} from "./scr/screens/Register";
+import {NavigationContainer} from "@react-navigation/native";
+import {AppRoutes} from "./scr/routes/app.routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({Poppins_400Regular, Poppins_500Medium, Poppins_700Bold});
@@ -15,7 +16,9 @@ export default function App() {
 
   return (
       <ThemeProvider theme={theme}>
-        <Register />
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
       </ThemeProvider>
   );
 }
