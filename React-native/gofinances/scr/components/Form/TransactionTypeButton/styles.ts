@@ -24,9 +24,9 @@ const color = {
 export const Container = styled.View<ContainerProps>`
   ${({theme, isActive, type}) => css`
     width: 48%;
-    border-width: ${isActive ? 0 : 1.5}px;
+    border-width: 1.5px;
     border-style: solid;
-    border-color: ${theme.colors.text_light};
+    border-color: ${isActive ? theme.colors.background : theme.colors.text_light};
     border-radius: 5px;
     background-color: ${isActive ? color[type] : theme.colors.background};
   `}

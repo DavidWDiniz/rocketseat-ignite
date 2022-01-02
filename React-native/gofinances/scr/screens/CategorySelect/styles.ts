@@ -1,12 +1,13 @@
 import { RFValue } from "react-native-responsive-fontsize";
 import styled, {css} from "styled-components/native";
 import {Feather} from "@expo/vector-icons";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 
 interface CategoryProps {
   isActive: boolean;
 }
 
-export const Container = styled.View`
+export const Container = styled(GestureHandlerRootView)`
   ${({theme}) => css`
     flex: 1;
     background-color: ${theme.colors.background};
