@@ -7,6 +7,9 @@ import AppLoading from "expo-app-loading";
 import {NavigationContainer} from "@react-navigation/native";
 import {AppRoutes} from "./scr/routes/app.routes";
 
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
+
 export default function App() {
   const [fontsLoaded] = useFonts({Poppins_400Regular, Poppins_500Medium, Poppins_700Bold});
 
