@@ -5,6 +5,7 @@ import {Dashboard} from "../screens/Dashboard";
 import {Register} from "../screens/Register";
 import {useTheme} from "styled-components/native";
 import {MaterialIcons} from "@expo/vector-icons";
+import {Resume} from "../screens/Resume";
 
 export type RootStackParamList = {
   Listagem: undefined;
@@ -57,7 +58,7 @@ export function AppRoutes() {
       />
       <Screen
         name="Resumo"
-        component={Register}
+        component={Resume}
         options={{
           tabBarIcon: (({size, color}) =>
               <MaterialIcons
