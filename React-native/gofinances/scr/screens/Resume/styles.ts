@@ -58,3 +58,9 @@ export const Month = styled.Text`
     font-size: ${RFValue(20)}px;
   `}
 `;
+
+export const LoaderContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
