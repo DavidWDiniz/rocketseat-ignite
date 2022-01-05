@@ -10,6 +10,7 @@ import {AppRoutes} from "./scr/routes/app.routes";
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
 import {StatusBar} from "react-native";
+import {SignIn} from "./scr/screens/SignIn";
 
 export default function App() {
   const [fontsLoaded] = useFonts({Poppins_400Regular, Poppins_500Medium, Poppins_700Bold});
@@ -26,7 +27,7 @@ export default function App() {
             backgroundColor="transparent"
             translucent
           />
-          <AppRoutes />
+          <SignIn />
         </NavigationContainer>
       </ThemeProvider>
   );
