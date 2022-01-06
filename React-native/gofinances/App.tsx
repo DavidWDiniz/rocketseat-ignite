@@ -5,12 +5,12 @@ import {useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold} from "
 import theme from "./scr/global/styles/theme";
 import AppLoading from "expo-app-loading";
 import {NavigationContainer} from "@react-navigation/native";
-import {AppRoutes} from "./scr/routes/app.routes";
 
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
 import {StatusBar} from "react-native";
 import {SignIn} from "./scr/screens/SignIn";
+import {AuthProvider} from "./scr/hooks/auth";
 
 export default function App() {
   const [fontsLoaded] = useFonts({Poppins_400Regular, Poppins_500Medium, Poppins_700Bold});
@@ -27,7 +27,9 @@ export default function App() {
             backgroundColor="transparent"
             translucent
           />
-          <SignIn />
+          <AuthProvider>
+            <SignIn />
+          </AuthProvider>
         </NavigationContainer>
       </ThemeProvider>
   );
