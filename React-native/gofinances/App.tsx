@@ -4,13 +4,12 @@ import {useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold} from "
 
 import theme from "./scr/global/styles/theme";
 import AppLoading from "expo-app-loading";
-import {NavigationContainer} from "@react-navigation/native";
 
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
 import {StatusBar} from "react-native";
-import {SignIn} from "./scr/screens/SignIn";
 import {AuthProvider} from "./scr/hooks/auth";
+import {Routes} from "./scr/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({Poppins_400Regular, Poppins_500Medium, Poppins_700Bold});
@@ -21,16 +20,14 @@ export default function App() {
 
   return (
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor="transparent"
-            translucent
-          />
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
           <AuthProvider>
-            <SignIn />
+            <Routes />
           </AuthProvider>
-        </NavigationContainer>
       </ThemeProvider>
   );
 }
