@@ -8,13 +8,13 @@ import AppLoading from "expo-app-loading";
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
 import {StatusBar} from "react-native";
-import {AuthProvider} from "./scr/hooks/auth";
+import {AuthProvider, useAuth} from "./scr/hooks/auth";
 import {Routes} from "./scr/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({Poppins_400Regular, Poppins_500Medium, Poppins_700Bold});
-
-  if(!fontsLoaded) {
+  const {userStorageLoading} = useAuth();
+  if(!fontsLoaded && userStorageLoading) {
     return <AppLoading />
   }
 
