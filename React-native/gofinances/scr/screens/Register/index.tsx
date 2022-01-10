@@ -14,6 +14,7 @@ import uuid from "react-native-uuid";
 import {useNavigation} from "@react-navigation/native";
 import {BottomTabNavigationProp} from "@react-navigation/bottom-tabs";
 import {RootStackParamList} from "../../routes/app.routes";
+import {useAuth} from "../../hooks/auth";
 
 interface FormData {
   name: string;
@@ -40,6 +41,7 @@ export function Register() {
   });
   const navigation = useNavigation<RegisterNavigationProps>();
   const {control, handleSubmit, formState: {errors}, reset} = useForm({resolver: yupResolver(schema)});
+  const {user} = useAuth();
 
   function handleTransactionTypeSelect(type: "positive" | "negative") {
     setTransactionType(type);
@@ -72,7 +74,7 @@ export function Register() {
     }
 
     try {
-      const dataKey = "@gofinances:transactions";
+      const dataKey = `@gofinances:transactions_user:${user.id}`;
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
       const dataFormatted = [
