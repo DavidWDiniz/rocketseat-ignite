@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Header, CarImages } from "./styles";
+import { Container, Header, CarImages, Content, Details, Description, Branding, Name, Rent, Period, Price, About } from "./styles";
 import {BackButton} from "../../components/BackButton";
 import {ImageSlider} from "../../components/ImageSlider";
 
@@ -12,6 +12,23 @@ export function CarDetails() {
       <CarImages>
         <ImageSlider imageUrl={["https://pngimg.com/uploads/audi/audi_PNG99491.png"]} />
       </CarImages>
+      <Content>
+        <Details>
+          <Description>
+            <Branding>lamborghini</Branding>
+            <Name>Huracan</Name>
+          </Description>
+          <Rent>
+            <Period>Ao dia</Period>
+            <Price>R$ 580</Price>
+          </Rent>
+        </Details>
+
+        <About>
+          Este é automóvel desportivo. Surgiu do lendário touro de lide indultado na praça Real Maestranza
+          de Sevilla. É um belíssimo carro para quem gosta de acelerar.
+        </About>
+      </Content>
     </Container>
   )
 }
