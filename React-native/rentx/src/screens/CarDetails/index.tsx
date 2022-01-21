@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Header, CarImages, Content, Details, Description, Branding, Name, Rent, Period, Price, Accessories, About } from "./styles";
+import { Container, Header, CarImages, Content, Details, Description, Branding, Name, Rent, Period, Price, Accessories, About, Footer} from "./styles";
 import {BackButton} from "../../components/BackButton";
 import {ImageSlider} from "../../components/ImageSlider";
 import {Accessory} from "../../components/Accessory";
@@ -9,6 +9,7 @@ import ForceSvg from "../../assets/force.svg";
 import GasolineSvg from "../../assets/gasoline.svg";
 import ExchangeSvg from "../../assets/exchange.svg";
 import PeopleSvg from "../../assets/people.svg";
+import {Button} from "../../components/Button";
 
 export function CarDetails() {
   return (
@@ -45,6 +46,10 @@ export function CarDetails() {
           de Sevilla. É um belíssimo carro para quem gosta de acelerar.
         </About>
       </Content>
+
+      <Footer>
+        <Button title="Confirmar" />
+      </Footer>
     </Container>
   )
 }
