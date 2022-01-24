@@ -88,6 +88,6 @@ export const About = styled.Text`
 
 export const Footer = styled.View`
   width: 100%;
-  background-color: ${({theme}) => theme.colors.background_secondary};
+  background-color: ${({theme}) => theme.colors.background_primary};
   padding: 24px 24px ${getBottomSpace() + 24}px;
 `;
