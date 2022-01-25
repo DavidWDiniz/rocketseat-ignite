@@ -13,10 +13,10 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: 325px;
+  height: 355px;
   background-color: ${({theme}) => theme.colors.header};
   justify-content: center;
-  padding: ${getStatusBarHeight() + 30}px 25px 25px;
+  padding: ${getStatusBarHeight() + 40}px 25px 25px;
 `;
 
 export const Title = styled.Text`
