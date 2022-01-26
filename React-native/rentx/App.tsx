@@ -6,7 +6,7 @@ import {Archivo_400Regular, Archivo_500Medium, Archivo_600SemiBold} from "@expo-
 import AppLoading from "expo-app-loading";
 import {ThemeProvider} from "styled-components/native";
 import theme from "./src/styles/theme";
-import {Routes} from "./src/Routes";
+import {Routes} from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
