@@ -1,10 +1,11 @@
 declare namespace ReactNavigation {
   import {CarDTO} from "../../../dtos/CarDTO";
+  import {MarkedDateProps} from "../../../components/Calendar";
   export interface RootParamList {
     Home: undefined
     CarDetails: CarDTO
-    Scheduling: undefined
-    SchedulingDetails: undefined
+    Scheduling: CarDTO
+    SchedulingDetails: { car: CarDTO, dates: MarkedDateProps}
     SchedulingComplete: undefined
   }
 }
