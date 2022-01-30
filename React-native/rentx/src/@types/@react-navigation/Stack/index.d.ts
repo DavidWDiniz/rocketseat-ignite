@@ -7,5 +7,6 @@ declare namespace ReactNavigation {
     Scheduling: CarDTO
     SchedulingDetails: { car: CarDTO, dates: MarkedDateProps}
     SchedulingComplete: undefined
+    MyCars: undefined
   }
 }
