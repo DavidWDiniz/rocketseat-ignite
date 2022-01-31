@@ -5,6 +5,7 @@ import {RectButton} from "react-native-gesture-handler";
 interface ButtonProps {
   color?: string;
   enabled?: boolean;
+  loading?: boolean;
 }
 
 export const Container = styled(RectButton)<ButtonProps>`
@@ -12,7 +13,7 @@ export const Container = styled(RectButton)<ButtonProps>`
   padding: 19px;
   align-items: center;
   justify-content: center;
-  opacity: ${({enabled}) => enabled ? 1 : 0.5};
+  opacity: ${({enabled, loading}) => (enabled === false || loading === true) ? 0.5 : 1};
   background-color:  ${({color, theme}) => color ? color : theme.colors.main};
 `;
 
