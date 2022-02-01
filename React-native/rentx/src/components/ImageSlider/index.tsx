@@ -1,12 +1,23 @@
-import React from "react";
+import React, {useRef, useState} from "react";
 import {Container, ImageIndexes, ImageIndex, CarImageWrapper, CarImage} from "./styles";
-import {FlatList} from "react-native";
+import {FlatList, ViewToken} from "react-native";
 
 interface ImageSliderProps {
   imageUrl: string[];
 }
 
+interface ChangeImageProps {
+  viewableItems: ViewToken[],
+  changed: ViewToken[]
+}
+
 export function ImageSlider({imageUrl}: ImageSliderProps) {
+  const [imageIndex, setImageIndex] = useState(0);
+  const indexChanged = useRef((info: ChangeImageProps) => {
+    const index = info.viewableItems[0].index!;
+    setImageIndex(index);
+  });
+
   return (
     <Container>
       <ImageIndexes>
@@ -14,7 +25,7 @@ export function ImageSlider({imageUrl}: ImageSliderProps) {
           imageUrl.map((_, index) => (
             <ImageIndex
               key={String(index)}
-              active={true}
+              active={index === imageIndex}
             />
           ))
         }
@@ -33,6 +44,7 @@ export function ImageSlider({imageUrl}: ImageSliderProps) {
         )}
         horizontal
         showsHorizontalScrollIndicator={false}
+        onViewableItemsChanged={indexChanged.current}
       />
 
     </Container>
