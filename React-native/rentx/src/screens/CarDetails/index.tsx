@@ -7,6 +7,7 @@ import {Button} from "../../components/Button";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {CarDTO} from "../../dtos/CarDTO";
 import {getAccessoryIcon} from "../../utils/getAccessoryIcon";
+import {StatusBar} from "react-native";
 
 interface Params {
   car: CarDTO;
@@ -27,6 +28,11 @@ export function CarDetails() {
 
   return (
     <Container>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
       <Header>
         <BackButton onPress={handleBack} />
       </Header>

@@ -37,7 +37,7 @@ import {getAccessoryIcon} from "../../utils/getAccessoryIcon";
 import {format} from "date-fns";
 import {getPlatformDate} from "../../utils/getPlatformDate";
 import api from "../../services/api";
-import {Alert} from "react-native";
+import {Alert, StatusBar} from "react-native";
 
 interface Params {
   car: CarDTO;
@@ -101,6 +101,11 @@ export function SchedulingDetails() {
 
   return (
     <Container>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
       <Header>
         <BackButton onPress={handleBack}/>
       </Header>
