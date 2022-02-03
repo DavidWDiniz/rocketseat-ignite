@@ -4,13 +4,16 @@ import BrandSvg from "../../assets/brand.svg";
 import LogoSvg from "../../assets/logo.svg";
 import Animated, {
   Extrapolate,
-  interpolate,
+  interpolate, runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from "react-native-reanimated";
+import {useNavigation} from "@react-navigation/native";
+import {StatusBar} from "react-native";
 
 export function Splash() {
+  const navigation = useNavigation();
   const splashAnimation = useSharedValue(0);
 
   const brandStyle = useAnimatedStyle(() => {
@@ -35,12 +38,28 @@ export function Splash() {
     }
   });
 
+  function startApp() {
+    navigation.navigate("Home");
+  }
+
   useEffect(() => {
-    splashAnimation.value = withTiming(50, {duration: 1000});
+    splashAnimation.value = withTiming(
+      50,
+      {duration: 1000},
+      () => {
+        "worklet"
+        runOnJS(startApp)();
+      }
+    );
   }, [])
 
   return (
     <Container>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
       <Animated.View
         style={[brandStyle, {position: "absolute"}]}
       >
