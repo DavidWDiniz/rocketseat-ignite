@@ -54,7 +54,7 @@ export function Home() {
   const theme = useTheme();
 
   function handleCarDetails(car: CarDTO) {
-    navigation.navigate("CarDetails",  {car});
+    navigation.navigate("CarDetails", {car});
   }
 
   function handleOpenMyCars() {
@@ -76,6 +76,12 @@ export function Home() {
     fetchCars();
   }, []);
 
+  useEffect(() => {
+    navigation.addListener("beforeRemove", (event) => {
+      event.preventDefault();
+    });
+  }, [navigation]);
+
   return (
     <Container>
       <StatusBar
@@ -89,9 +95,12 @@ export function Home() {
             width={RFValue(108)}
             height={RFValue(12)}
           />
-          <TotalCars>
-            Total de {cars.length} carros
-          </TotalCars>
+          {
+            !loading &&
+            <TotalCars>
+              Total de {cars.length} carros
+            </TotalCars>
+          }
         </HeaderContent>
       </Header>
       {loading ? <Load/> : (
