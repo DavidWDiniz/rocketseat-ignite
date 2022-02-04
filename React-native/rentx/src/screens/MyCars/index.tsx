@@ -22,7 +22,7 @@ import {useNavigation} from "@react-navigation/native";
 import {useTheme} from "styled-components";
 import {Car} from "../../components/Car";
 import {AntDesign} from "@expo/vector-icons";
-import {Load} from "../../components/Load";
+import {LoadAnimation} from "../../components/LoadAnimation";
 
 interface CarProps {
   id: string,
@@ -77,7 +77,7 @@ export function MyCars() {
           Conforto, segurança e praticidade.
         </Subtitle>
       </Header>
-      {loading ? <Load /> : (
+      {loading ? <LoadAnimation /> : (
         <Content>
           <Appointments>
             <AppointmentsTitle>Agendamentos feitos</AppointmentsTitle>
