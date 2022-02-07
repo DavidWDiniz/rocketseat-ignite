@@ -9,9 +9,10 @@ interface AccessoryProps extends RectButtonProps {
   color?: string;
   enabled?: boolean;
   loading?: boolean;
+  light?: boolean;
 }
 
-export function Button({title, color, enabled = true, loading = false, ...rest}: AccessoryProps) {
+export function Button({title, color, enabled = true, loading = false, light = false, ...rest}: AccessoryProps) {
   const theme = useTheme();
   return (
     <Container
@@ -22,7 +23,7 @@ export function Button({title, color, enabled = true, loading = false, ...rest}:
       {loading ?
         <ActivityIndicator color={theme.colors.shape} />
         :
-        <Title>{title}</Title>}
+        <Title light={light}>{title}</Title>}
     </Container>
   )
 }
