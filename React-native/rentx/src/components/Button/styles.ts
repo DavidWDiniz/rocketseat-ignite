@@ -19,6 +19,7 @@ export const Container = styled(RectButton)<ButtonProps>`
   justify-content: center;
   opacity: ${({enabled, loading}) => (enabled === false || loading === true) ? 0.5 : 1};
   background-color:  ${({color, theme}) => color ? color : theme.colors.main};
+  margin-bottom: 8px;
 `;
 
 export const Title = styled.Text<ButtonTextProps>`
