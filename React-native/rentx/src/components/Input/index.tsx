@@ -16,7 +16,7 @@ export function Input({iconName, ...rest}: InputProps) {
         <Feather
           name={iconName}
           size={24}
-          color={theme.colors.text_detail}
+          color={theme.colors.text}
         />
       </IconContainer>
       <InputText {...rest} />
