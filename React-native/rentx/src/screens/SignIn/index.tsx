@@ -21,8 +21,7 @@ export function SignIn() {
         <Container>
           <StatusBar
             barStyle="dark-content"
-            backgroundColor="transparent"
-            translucent
+            backgroundColor={theme.colors.background_primary}
           />
           <Header>
             <Title>

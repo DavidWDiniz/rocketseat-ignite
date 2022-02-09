@@ -7,7 +7,6 @@ import {useTheme} from "styled-components";
 interface AccessoryProps extends RectButtonProps {
   title: string;
   color?: string;
-  enabled?: boolean;
   loading?: boolean;
   light?: boolean;
 }
