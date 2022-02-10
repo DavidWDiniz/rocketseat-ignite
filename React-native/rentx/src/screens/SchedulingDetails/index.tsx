@@ -80,7 +80,14 @@ export function SchedulingDetails() {
         unavailable_dates
       });
 
-      navigation.navigate("SchedulingComplete");
+      navigation.navigate("Confirmation", {
+        title: "Carro alugado",
+        message:
+          `Agora você só precisa ir\n
+          até a concessionária da RENTX\n
+          pegar o seu automóvel.`,
+        nextScreenRoute: "Home",
+      });
     } catch (error) {
       setLoading(false);
       console.log(error);

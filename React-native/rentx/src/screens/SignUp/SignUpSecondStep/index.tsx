@@ -36,7 +36,11 @@ export function SignUpSecondStep() {
         password: Yup.string().required("Senha obrigatória"),
       });
       await schema.validate({password, passwordConfirm});
-
+      navigation.navigate("Confirmation", {
+        title: "Conta criada",
+        message: `Agora é só fazer login\ne aproveitar`,
+        nextScreenRoute: "SignIn",
+      });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         Alert.alert("Opa!", error.message);
