@@ -8,6 +8,7 @@ import {Alert, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback} from "r
 import {PasswordInput} from "../../../components/PasswordInput";
 import {useTheme} from "styled-components";
 import * as Yup from "yup";
+import api from "../../../services/api";
 
 interface Params {
   user: {
@@ -36,10 +37,20 @@ export function SignUpSecondStep() {
         password: Yup.string().required("Senha obrigatória"),
       });
       await schema.validate({password, passwordConfirm});
-      navigation.navigate("Confirmation", {
-        title: "Conta criada",
-        message: `Agora é só fazer login\ne aproveitar`,
-        nextScreenRoute: "SignIn",
+
+      await api.post("/users", {
+        name: user.name,
+        email: user.email,
+        driver_license: user.driverLicense,
+        password
+      }).then(() => {
+        navigation.navigate("Confirmation", {
+          title: "Conta criada",
+          message: `Agora é só fazer login\ne aproveitar`,
+          nextScreenRoute: "SignIn",
+        });
+      }).catch(() => {
+        Alert.alert("Opa!", "Não foi possível cadastrar.");
       });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
