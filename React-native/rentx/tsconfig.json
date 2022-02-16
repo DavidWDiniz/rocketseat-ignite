@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "experimentalDecorators": true,
     "baseUrl": "./",
     "paths": {
       "react-native-calendars": ["node_modules/@types/react-native-calendars"]
