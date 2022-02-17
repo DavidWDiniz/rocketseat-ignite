@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Container, Header, Subtitle, Title, Footer, Form} from "./styles";
 import {Alert, Keyboard, KeyboardAvoidingView, StatusBar, TouchableWithoutFeedback} from "react-native";
 import {Button} from "../../components/Button";
@@ -8,7 +8,6 @@ import {PasswordInput} from "../../components/PasswordInput";
 import * as Yup from "yup";
 import {useNavigation} from "@react-navigation/native";
 import {useAuth} from "../../hooks/auth";
-import {database} from "../../database";
 
 export function SignIn() {
   const [email, setEmail] = useState("");
@@ -39,15 +38,6 @@ export function SignIn() {
   function handleNewAccount() {
     navigation.navigate("SignUpFirstStep");
   }
-
-  useEffect(() => {
-    async function loadData() {
-      const userCollection = database.get("users");
-      const users = await userCollection.query().fetch();
-      console.log(users);
-    }
-    loadData();
-  }, [])
 
   return (
     <KeyboardAvoidingView
