@@ -25,6 +25,7 @@ export function AppTabRoutes() {
           paddingVertical: Platform.OS === "ios" ? 20 : 0,
           backgroundColor: theme.colors.background_primary,
         },
+        tabBarHideOnKeyboard: true,
       }}>
       <Screen
         name="Stack"
