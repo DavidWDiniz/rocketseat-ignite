@@ -25,7 +25,7 @@ import {useAuth} from "../../hooks/auth";
 import * as ImagePicker from 'expo-image-picker';
 
 export function Profile() {
-  const {user} = useAuth();
+  const {user, signOut} = useAuth();
   const [option, setOption] = useState<"dataEdit" | "passwordEdit">("passwordEdit");
   const [avatar, setAvatar] = useState(user.avatar);
   const [name, setName] = useState(user.name);
@@ -36,10 +36,6 @@ export function Profile() {
 
   function handleBack() {
     navigation.goBack();
-  }
-
-  function handleSignOut() {
-
   }
 
   function handleOptionChange(optionSelected: "dataEdit" | "passwordEdit") {
@@ -54,7 +50,6 @@ export function Profile() {
       quality: 1
     });
 
-    console.log("AAAAAA", result);
     if (result.cancelled) {
       return;
     }
@@ -75,7 +70,7 @@ export function Profile() {
                 onPress={handleBack}
               />
               <HeaderTitle>Editar perfil</HeaderTitle>
-              <LogoutButton onPress={handleSignOut}>
+              <LogoutButton onPress={signOut}>
                 <Feather
                   name="power"
                   size={24}
