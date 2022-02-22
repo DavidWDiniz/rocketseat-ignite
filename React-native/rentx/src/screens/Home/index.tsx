@@ -43,6 +43,7 @@ export function Home() {
       },
     });
   }
+
   useEffect(() => {
     if(netInfo.isConnected === true) {
       offlineSynchronize();
