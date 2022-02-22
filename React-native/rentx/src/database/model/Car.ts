@@ -4,8 +4,8 @@ import {field} from "@nozbe/watermelondb/decorators";
 class Car extends Model {
   static table = "cars";
 
-  @field("user_id")
-  user_id!: string;
+  @field("name")
+  name!: string;
 
   @field("brand")
   brand!: string;
