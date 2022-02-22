@@ -43,6 +43,11 @@ export function Home() {
       },
     });
   }
+  useEffect(() => {
+    if(netInfo.isConnected === true) {
+      offlineSynchronize();
+    }
+  },[netInfo.isConnected]);
 
   useEffect(() => {
     let isMounted = true;
@@ -67,12 +72,6 @@ export function Home() {
       isMounted = false;
     }
   }, []);
-
-  useEffect(() => {
-    if(netInfo.isConnected === true) {
-      offlineSynchronize();
-    }
-  },[netInfo.isConnected]);
 
   return (
     <Container>
