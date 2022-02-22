@@ -6,7 +6,6 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {Car} from "../../components/Car";
 import {useNavigation} from "@react-navigation/native";
 import api from "../../services/api";
-import {CarDTO} from "../../dtos/CarDTO";
 import {LoadAnimation} from "../../components/LoadAnimation";
 import {useNetInfo} from "@react-native-community/netinfo";
 import {synchronize} from "@nozbe/watermelondb/sync";
@@ -20,7 +19,7 @@ export function Home() {
   const navigation = useNavigation();
   const netInfo = useNetInfo();
 
-  function handleCarDetails(car: CarDTO) {
+  function handleCarDetails(car: ModelCar) {
     navigation.navigate("CarDetails", {car});
   }
 
@@ -70,7 +69,7 @@ export function Home() {
   }, []);
 
   useEffect(() => {
-    if(netInfo.isConnected) {
+    if(netInfo.isConnected === true) {
       offlineSynchronize();
     }
   },[netInfo.isConnected]);

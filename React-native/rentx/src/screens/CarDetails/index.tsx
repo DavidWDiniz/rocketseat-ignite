@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
   Container,
   Header,
@@ -12,7 +12,8 @@ import {
   Accessories,
   About,
   Footer,
-  CarImages
+  CarImages,
+  OfflineInfo
 } from "./styles";
 import {BackButton} from "../../components/BackButton";
 import {ImageSlider} from "../../components/ImageSlider";
@@ -31,12 +32,17 @@ import Animated, {
 } from "react-native-reanimated";
 import {getStatusBarHeight} from "react-native-iphone-x-helper";
 import {useTheme} from "styled-components";
+import {Car as ModelCar} from "../../database/model/Car";
+import api from "../../services/api";
+import {useNetInfo} from "@react-native-community/netinfo";
 
 interface Params {
-  car: CarDTO;
+  car: ModelCar;
 }
 
 export function CarDetails() {
+  const [carUpdated, setCarUpdated] = useState<CarDTO>({} as CarDTO);
+  const netInfo = useNetInfo();
   const navigation = useNavigation();
   const route = useRoute();
   const {car} = route.params as Params;
@@ -67,6 +73,16 @@ export function CarDetails() {
     navigation.goBack();
   }
 
+  useEffect(() => {
+    async function fetchCarUpdated() {
+      const response = await api.get(`/cars/${car.id}`);
+      setCarUpdated(response.data);
+    }
+    if (netInfo.isConnected === true) {
+      fetchCarUpdated();
+    }
+  }, [netInfo.isConnected]);
+
   return (
     <Container>
       <StatusBar
@@ -88,7 +104,10 @@ export function CarDetails() {
           <Animated.View
             style={sliderCarStyleAnimation}
           >
-            <ImageSlider imageUrl={car.photos}/>
+            <ImageSlider imageUrl={
+              !!carUpdated.photos ?
+                carUpdated.photos : [{id: car.thumbnail, photo: car.thumbnail}]
+            }/>
           </Animated.View>
         </CarImages>
       </Animated.View>
@@ -109,13 +128,14 @@ export function CarDetails() {
           </Description>
           <Rent>
             <Period>{car.period}</Period>
-            <Price>R$ {car.price}</Price>
+            <Price>R$ {netInfo.isConnected === true ? car.price : "..."}</Price>
           </Rent>
         </Details>
 
-        <Accessories>
+        {<Accessories>
           {
-            car.accessories.map(accessory => (
+            carUpdated.accessories &&
+            carUpdated.accessories.map(accessory => (
               <Accessory
                 key={accessory.type}
                 name={accessory.name}
@@ -123,7 +143,7 @@ export function CarDetails() {
               />
             ))
           }
-        </Accessories>
+        </Accessories>}
 
         <About>
           {car.about}
@@ -134,7 +154,15 @@ export function CarDetails() {
         <Button
           title="Escolher período do aluguel"
           onPress={handleConfirmRental}
+          enabled={netInfo.isConnected === true}
         />
+
+        {
+          netInfo.isConnected === false &&
+          <OfflineInfo>
+              Conecte-se a internet para ver mais detalhes e agendar seu carro.
+          </OfflineInfo>
+        }
       </Footer>
     </Container>
   )
