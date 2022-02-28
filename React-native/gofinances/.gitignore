@@ -24,7 +24,6 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
-build/
 .idea
 .gradle
 local.properties
@@ -56,3 +55,6 @@ dist/
 
 # Environment variables
 .env
+
+# Jest
+coverage
