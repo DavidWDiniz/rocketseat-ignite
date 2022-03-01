@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Platform, FlatList} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Platform, FlatList, StatusBar} from 'react-native';
 import {SkillCard} from "../components/SkillCard";
 import {Button} from "../components/Button";
 
@@ -38,6 +38,11 @@ export function Home() {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
       <Text
         testID="welcome"
         style={styles.title}
@@ -50,12 +55,14 @@ export function Home() {
         {greeting}
       </Text>
       <TextInput
+        testID="input-new"
         style={styles.input}
         placeholder='New skill'
         placeholderTextColor='#555'
         onChangeText={setNewSkill}
       />
       <Button
+        testID="button-add"
         title='Add'
         onPress={handleAddNewSkill}
       />
@@ -65,8 +72,10 @@ export function Home() {
         My Skills
       </Text>
       <FlatList
+        testID="flat-list-skills"
         data={mySkills}
         keyExtractor={item => item.id}
+        keyboardShouldPersistTaps="never"
         renderItem={({item}) => (
           <SkillCard
             skill={item.name}
