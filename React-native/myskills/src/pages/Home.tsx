@@ -39,6 +39,7 @@ export function Home() {
   return (
     <View style={styles.container}>
       <Text
+        testID="welcome"
         style={styles.title}
       >
         Welcome, David
