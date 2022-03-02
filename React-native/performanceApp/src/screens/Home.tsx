@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {Button, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
 import {FriendList} from "../components/FriendList";
 
@@ -11,6 +11,10 @@ export function Home() {
     const data = await response.json();
     setFriends(data);
   }
+
+  const handleFollow = useCallback(() => {
+    console.log("follow user");
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -26,7 +30,10 @@ export function Home() {
       />
       
       <ScrollView style={styles.list}>
-        <FriendList data={friends} />
+        <FriendList
+          data={friends}
+          follow={handleFollow}
+        />
       </ScrollView>
     </View>
   );
