@@ -33,6 +33,17 @@ export function SignIn() {
       });
   }
 
+  async function handleSignInWithEmailAndPassword() {
+    auth().signInWithEmailAndPassword(email, password).then(
+      ({user}) => {console.log(user)})
+      .catch(error => {
+        console.log(error.code);
+        if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
+          return Alert.alert("Email e/ou senha incorretos");
+        }
+      });
+  }
+
   return (
     <Container>
       <Title>MyShopping</Title>
@@ -50,7 +61,7 @@ export function SignIn() {
         onChangeText={setPassword}
       />
 
-      <Button title="Entrar" onPress={handleSIgnInAnonymously} />
+      <Button title="Entrar" onPress={handleSignInWithEmailAndPassword} />
 
       <Account>
         <ButtonText title="Recuperar senha" onPress={() => { }} />
