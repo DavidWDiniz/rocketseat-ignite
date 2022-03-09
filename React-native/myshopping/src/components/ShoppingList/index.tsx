@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 
 import { styles } from './styles';
 import { Product, ProductProps } from '../Product';
+import firestore from "@react-native-firebase/firestore";
 
-import { shoppingListExample } from '../../utils/shopping.list.data';
 
 export function ShoppingList() {
-  const [products, setProducts] = useState<ProductProps[]>(shoppingListExample);
+  const [products, setProducts] = useState<ProductProps[]>([]);
+
+  useEffect(() => {
+    firestore()
+      .collection("products")
+      .get().then(response => {
+        const data = response.docs.map(doc => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          }
+        }) as ProductProps[]
+        setProducts(data);
+      }).catch(error => console.log(error));
+  }, []);
 
   return (
     <FlatList
