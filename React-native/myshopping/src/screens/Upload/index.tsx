@@ -6,6 +6,8 @@ import { Header } from '../../components/Header';
 import { Photo } from '../../components/Photo';
 
 import { Container, Content, Progress, Transferred } from './styles';
+import storage from "@react-native-firebase/storage";
+import {Alert} from "react-native";
 
 export function Upload() {
   const [image, setImage] = useState('');
@@ -26,6 +28,14 @@ export function Upload() {
     }
   }
 
+  async function handleUpload() {
+    const fileName = new Date().getTime();
+    const reference = storage().ref(`/images/${fileName}.png`);
+    reference.putFile(image)
+      .then(() => Alert.alert("Upload concluído!"))
+      .catch(error => console.log(error));
+  }
+
   return (
     <Container>
       <Header title="Lista de compras" />
@@ -35,7 +45,7 @@ export function Upload() {
 
         <Button
           title="Fazer upload"
-          onPress={() => { }}
+          onPress={handleUpload}
         />
 
         <Progress>
