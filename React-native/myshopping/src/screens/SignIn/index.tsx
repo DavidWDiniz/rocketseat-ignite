@@ -11,10 +11,10 @@ export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function handleSIgnInAnonymously() {
-    const {user} = await auth().signInAnonymously();
-    console.log(user);
-  }
+  // async function handleSIgnInAnonymously() {
+  //   const {user} = await auth().signInAnonymously();
+  //   console.log(user);
+  // }
 
   function handleCreateUserAccount() {
     auth().createUserWithEmailAndPassword(email, password)
@@ -44,6 +44,12 @@ export function SignIn() {
       });
   }
 
+  function handleForgotPassword() {
+    auth().sendPasswordResetEmail(email).then(() => {
+      Alert.alert("Enviamos um link no seu email para redefinir sua senha")
+    })
+  }
+
   return (
     <Container>
       <Title>MyShopping</Title>
@@ -64,7 +70,7 @@ export function SignIn() {
       <Button title="Entrar" onPress={handleSignInWithEmailAndPassword} />
 
       <Account>
-        <ButtonText title="Recuperar senha" onPress={() => { }} />
+        <ButtonText title="Recuperar senha" onPress={handleForgotPassword} />
         <ButtonText title="Criar minha conta" onPress={handleCreateUserAccount} />
       </Account>
     </Container>
