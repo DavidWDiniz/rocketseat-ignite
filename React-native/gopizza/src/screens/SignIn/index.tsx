@@ -10,10 +10,14 @@ import {useAuth} from "../../hooks/auth";
 export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {signIn, isLogging} = useAuth();
+  const {signIn, isLogging, forgotPassword} = useAuth();
 
   async function handleSignIn() {
     await signIn(email, password);
+  }
+
+  async function handleForgotPassword() {
+    await forgotPassword(email);
   }
 
   return (
@@ -37,7 +41,9 @@ export function SignIn() {
             onChangeText={setPassword}
           />
 
-          <ForgotPasswordButton>
+          <ForgotPasswordButton
+            onPress={handleForgotPassword}
+          >
             <ForgotPasswordButtonLabel>
               Esqueci minha senha
             </ForgotPasswordButtonLabel>
