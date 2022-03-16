@@ -4,10 +4,10 @@ import {DMSerifDisplay_400Regular} from "@expo-google-fonts/dm-serif-display";
 import AppLoading from "expo-app-loading";
 import {ThemeProvider} from "styled-components/native";
 import theme from "./src/theme";
-import {SignIn} from "./src/screens/SignIn";
 import {StatusBar} from "expo-status-bar";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {AuthProvider} from "./src/hooks/auth";
+import {Product} from "./src/screens/Product";
 
 export default function App() {
   const fontsLoaded = useFonts({
@@ -28,7 +28,7 @@ export default function App() {
           backgroundColor="transparent"
         />
         <AuthProvider>
-          <SignIn/>
+          <Product />
         </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
