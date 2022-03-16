@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, DeleteLabel, Header, Title } from "./styles";
+import { Container, DeleteLabel, Header, PickImageButton, Title, Upload } from "./styles";
 import {Platform, TouchableOpacity} from "react-native";
 import {ButtonBack} from "../../components/ButtonBack";
 import {Photo} from "../../components/Photo";
@@ -14,7 +14,10 @@ export function Product() {
           <DeleteLabel>Deletar</DeleteLabel>
         </TouchableOpacity>
       </Header>
-      <Photo uri="" />
+      <Upload>
+        <Photo uri="" />
+        <PickImageButton title="Carregar" type="secondary" />
+      </Upload>
     </Container>
   );
 }
