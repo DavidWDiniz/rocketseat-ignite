@@ -7,7 +7,7 @@ import theme from "./src/theme";
 import {StatusBar} from "expo-status-bar";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {AuthProvider} from "./src/hooks/auth";
-import {Product} from "./src/screens/Product";
+import {Home} from "./src/screens/Home";
 
 export default function App() {
   const fontsLoaded = useFonts({
@@ -28,7 +28,7 @@ export default function App() {
           backgroundColor="transparent"
         />
         <AuthProvider>
-          <Product />
+          <Home />
         </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
