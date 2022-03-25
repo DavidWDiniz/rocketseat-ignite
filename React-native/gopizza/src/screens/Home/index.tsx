@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Greeting, GreetingEmoji, GreetingText, Header } from "./styles";
+import { Container, Greeting, GreetingEmoji, GreetingText, Header, MenuHeader, MenuItemsNumber, Title } from "./styles";
 import happyEmoji from "../../assets/happy.png";
 import {MaterialIcons} from "@expo/vector-icons";
 import {useTheme} from "styled-components/native";
@@ -22,6 +22,10 @@ export function Home() {
       </Header>
 
       <Search onSearch={() => {}} onClear={() => {}} />
+      <MenuHeader>
+        <Title>Cardápio</Title>
+        <MenuItemsNumber>10 pizzas</MenuItemsNumber>
+      </MenuHeader>
     </Container>
   );
 }
