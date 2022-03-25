@@ -4,7 +4,7 @@ import {useTheme} from "styled-components/native";
 import {RectButtonProps} from "react-native-gesture-handler";
 import {Feather} from "@expo/vector-icons";
 
-type ProductProps = {
+export type ProductProps = {
   id: string;
   photo_url: string;
   name: string;
