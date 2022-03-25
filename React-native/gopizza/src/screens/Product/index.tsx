@@ -1,6 +1,18 @@
 import React, {useEffect, useState} from "react";
-import { Container, DeleteLabel, Header, PickImageButton, Title, Upload, Label, Form, InputGroupHeader, InputGroup, MaxCharacters } from "./styles";
-import {Alert, Platform, ScrollView, TouchableOpacity} from "react-native";
+import {
+  Container,
+  DeleteLabel,
+  Header,
+  PickImageButton,
+  Title,
+  Upload,
+  Label,
+  Form,
+  InputGroupHeader,
+  InputGroup,
+  MaxCharacters
+} from "./styles";
+import {Alert, Platform, ScrollView, TouchableOpacity, View} from "react-native";
 import {ButtonBack} from "../../components/ButtonBack";
 import {Photo} from "../../components/Photo";
 import * as ImagePicker from 'expo-image-picker';
@@ -9,7 +21,7 @@ import {Input} from "../../components/Input";
 import {Button} from "../../components/Button";
 import firestore from "@react-native-firebase/firestore";
 import storage from "@react-native-firebase/storage";
-import {useRoute} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import {ProductNavigationProps} from "../../@types/navigation";
 import {ProductProps} from "../../components/ProductCard";
 
@@ -32,6 +44,7 @@ export function Product() {
   const [priceG, setPriceG] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigation = useNavigation();
   const route = useRoute();
   const {id} = route.params as ProductNavigationProps;
 
@@ -50,16 +63,16 @@ export function Product() {
   }
 
   async function handleAdd() {
-    if(!name.trim()) {
+    if (!name.trim()) {
       return Alert.alert("Cadastro", "Informe o nome da pizza.");
     }
-    if(!image) {
+    if (!image) {
       return Alert.alert("Cadastro", "Selecione a imagem da pizza..");
     }
-    if(!description.trim()) {
+    if (!description.trim()) {
       return Alert.alert("Cadastro", "Informe a descrição da pizza.");
     }
-    if(!priceP || !priceM || !priceG) {
+    if (!priceP || !priceM || !priceG) {
       return Alert.alert("Cadastro", "Informe o preço de todos os tamanhos da pizza.");
     }
 
@@ -89,6 +102,10 @@ export function Product() {
     setIsLoading(false);
   }
 
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
   useEffect(() => {
     if (id) {
       firestore()
@@ -114,69 +131,81 @@ export function Product() {
         showsVerticalScrollIndicator={false}
       >
         <Header>
-          <ButtonBack />
+          <ButtonBack
+            onPress={handleGoBack}
+          />
           <Title>Cadastrar</Title>
-          <TouchableOpacity>
-            <DeleteLabel>Deletar</DeleteLabel>
-          </TouchableOpacity>
-        </Header>
-        <Upload>
-          <Photo uri={image} />
-          <PickImageButton
+          {
+            id ?
+              <TouchableOpacity>
+                <DeleteLabel>Deletar</DeleteLabel>
+              </TouchableOpacity> :
+              <View style={{width: 20}}/>
+          }
+            </Header>
+            <Upload>
+            <Photo uri={image}/>
+          {
+            !id &&
+            <PickImageButton
             title="Carregar"
             type="secondary"
             onPress={handlePickImage}
-          />
-        </Upload>
-        <Form>
-          <InputGroup>
+            />
+          }
+            </Upload>
+            <Form>
+            <InputGroup>
             <Label>Nome</Label>
             <Input
-              onChangeText={setName}
-              value={name}
+            onChangeText={setName}
+            value={name}
             />
-          </InputGroup>
+            </InputGroup>
 
-          <InputGroup>
+            <InputGroup>
             <InputGroupHeader>
-              <Label>Descrição</Label>
-              <MaxCharacters>0 de 60 caracteres</MaxCharacters>
+            <Label>Descrição</Label>
+            <MaxCharacters>0 de 60 caracteres</MaxCharacters>
             </InputGroupHeader>
             <Input
-              multiline
-              maxLength={60}
-              style={{height: 80}}
-              onChangeText={setDescription}
-              value={description}
+            multiline
+            maxLength={60}
+            style={{height: 80}}
+            onChangeText={setDescription}
+            value={description}
             />
-          </InputGroup>
+            </InputGroup>
 
-          <InputGroup>
+            <InputGroup>
             <Label>Tamanhos e preços</Label>
             <InputPrice
-              size="P"
-              onChangeText={setPriceP}
-              value={priceP}
+            size="P"
+            onChangeText={setPriceP}
+            value={priceP}
             />
             <InputPrice
-              size="M"
-              onChangeText={setPriceM}
-              value={priceM}
+            size="M"
+            onChangeText={setPriceM}
+            value={priceM}
             />
             <InputPrice
-              size="G"
-              onChangeText={setPriceG}
-              value={priceG}
+            size="G"
+            onChangeText={setPriceG}
+            value={priceG}
             />
-          </InputGroup>
+            </InputGroup>
 
-          <Button
+          {
+            !id &&
+            <Button
             title="Cadastrar pizza"
             isLoading={isLoading}
             onPress={handleAdd}
-          />
-        </Form>
-      </ScrollView>
-    </Container>
-  );
-}
+            />
+          }
+            </Form>
+            </ScrollView>
+            </Container>
+            );
+          }

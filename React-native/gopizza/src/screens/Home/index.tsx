@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Container, Greeting, GreetingEmoji, GreetingText, Header, MenuHeader, MenuItemsNumber, Title } from "./styles";
+import { Container, Greeting, GreetingEmoji, GreetingText, Header, MenuHeader, MenuItemsNumber, NewProductButton, Title } from "./styles";
 import happyEmoji from "../../assets/happy.png";
 import {MaterialIcons} from "@expo/vector-icons";
 import {useTheme} from "styled-components/native";
@@ -48,6 +48,10 @@ export function Home() {
     navigation.navigate("product", {id});
   }
 
+  function handleAdd() {
+    navigation.navigate("product", {});
+  }
+
   useEffect(() => {
     fetchPizzas("");
   }, []);
@@ -91,6 +95,12 @@ export function Home() {
           paddingBottom: 125,
           marginHorizontal: 24
         }}
+      />
+
+      <NewProductButton
+        title="Cadastrar pizza"
+        type="secondary"
+        onPress={handleAdd}
       />
     </Container>
   );
