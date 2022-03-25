@@ -1,14 +1,16 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Container, Greeting, GreetingEmoji, GreetingText, Header, MenuHeader, MenuItemsNumber, Title } from "./styles";
 import happyEmoji from "../../assets/happy.png";
 import {MaterialIcons} from "@expo/vector-icons";
 import {useTheme} from "styled-components/native";
-import {Alert, TouchableOpacity} from "react-native";
+import {Alert, FlatList, TouchableOpacity} from "react-native";
 import {Search} from "../../components/Search";
 import {ProductCard, ProductProps} from "../../components/ProductCard";
 import firestore from "@react-native-firebase/firestore";
 
 export function Home() {
+  const [pizzas, setPizzas] = useState<ProductProps[]>([]);
+  const [search, setSearch] = useState("");
   const theme = useTheme();
 
   function fetchPizzas(value: string) {
@@ -26,9 +28,18 @@ export function Home() {
             ...doc.data(),
           }
         }) as ProductProps[];
-        console.log(data);
+        setPizzas(data);
       })
       .catch(() => Alert.alert("Consulta", "Não foi possível realizar a consulta."));
+  }
+
+  function handleSearch() {
+    fetchPizzas(search);
+  }
+
+  function handleSearchClear() {
+    setSearch("");
+    fetchPizzas("");
   }
 
   useEffect(() => {
@@ -48,18 +59,28 @@ export function Home() {
         </TouchableOpacity>
       </Header>
 
-      <Search onSearch={() => {}} onClear={() => {}} />
+      <Search
+        onChangeText={setSearch}
+        value={search}
+        onSearch={handleSearch}
+        onClear={handleSearchClear}
+      />
       <MenuHeader>
         <Title>Cardápio</Title>
         <MenuItemsNumber>10 pizzas</MenuItemsNumber>
       </MenuHeader>
 
-      <ProductCard data={{
-        id: "1",
-        name: "Pizza",
-        description: "4 queijos",
-        photo_url: "https://superprix.vteximg.com.br/arquivos/ids/204058-600-600/8d1c807dd5f808c791d467a8f6391cf2_pizza-seara-de-4-queijos-460g_lett_5.jpg?v=637695827205500000"
-      }}/>
+      <FlatList
+        data={pizzas}
+        keyExtractor={item => item.id}
+        renderItem={({item}) =><ProductCard data={item}/>}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingTop: 20,
+          paddingBottom: 125,
+          marginHorizontal: 24
+        }}
+      />
     </Container>
   );
 }
