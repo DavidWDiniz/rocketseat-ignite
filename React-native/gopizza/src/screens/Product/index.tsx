@@ -113,8 +113,7 @@ export function Product() {
       .doc(id)
       .delete()
       .then(() => {
-        storage().
-          ref(photoPath)
+        storage().ref(photoPath)
           .delete()
           .then(() => {
             navigation.navigate("home")
@@ -160,70 +159,70 @@ export function Product() {
               </TouchableOpacity> :
               <View style={{width: 20}}/>
           }
-            </Header>
-            <Upload>
-            <Photo uri={image}/>
+        </Header>
+        <Upload>
+          <Photo uri={image}/>
           {
             !id &&
-            <PickImageButton
-            title="Carregar"
-            type="secondary"
-            onPress={handlePickImage}
-            />
+              <PickImageButton
+                  title="Carregar"
+                  type="secondary"
+                  onPress={handlePickImage}
+              />
           }
-            </Upload>
-            <Form>
-            <InputGroup>
+        </Upload>
+        <Form>
+          <InputGroup>
             <Label>Nome</Label>
             <Input
-            onChangeText={setName}
-            value={name}
+              onChangeText={setName}
+              value={name}
             />
-            </InputGroup>
+          </InputGroup>
 
-            <InputGroup>
+          <InputGroup>
             <InputGroupHeader>
-            <Label>Descrição</Label>
-            <MaxCharacters>0 de 60 caracteres</MaxCharacters>
+              <Label>Descrição</Label>
+              <MaxCharacters>0 de 60 caracteres</MaxCharacters>
             </InputGroupHeader>
             <Input
-            multiline
-            maxLength={60}
-            style={{height: 80}}
-            onChangeText={setDescription}
-            value={description}
+              multiline
+              maxLength={60}
+              style={{height: 80}}
+              onChangeText={setDescription}
+              value={description}
             />
-            </InputGroup>
+          </InputGroup>
 
-            <InputGroup>
+          <InputGroup>
             <Label>Tamanhos e preços</Label>
             <InputPrice
-            size="P"
-            onChangeText={setPriceP}
-            value={priceP}
+              size="P"
+              onChangeText={setPriceP}
+              value={priceP}
             />
             <InputPrice
-            size="M"
-            onChangeText={setPriceM}
-            value={priceM}
+              size="M"
+              onChangeText={setPriceM}
+              value={priceM}
             />
             <InputPrice
-            size="G"
-            onChangeText={setPriceG}
-            value={priceG}
+              size="G"
+              onChangeText={setPriceG}
+              value={priceG}
             />
-            </InputGroup>
+          </InputGroup>
 
           {
             !id &&
-            <Button
-            title="Cadastrar pizza"
-            isLoading={isLoading}
-            onPress={handleAdd}
-            />
+              <Button
+                  title="Cadastrar pizza"
+                  isLoading={isLoading}
+                  onPress={handleAdd}
+              />
           }
-            </Form>
-            </ScrollView>
-            </Container>
-            );
-          }
+        </Form>
+      </ScrollView>
+    </Container>
+  );
+}
