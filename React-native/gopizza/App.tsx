@@ -29,7 +29,7 @@ export default function App() {
           backgroundColor="transparent"
         />
         <AuthProvider>
-          <Orders/>
+          <Routes/>
         </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
