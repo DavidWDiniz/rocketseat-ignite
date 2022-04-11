@@ -5,9 +5,16 @@ import {RadioButton} from "../../components/RadioButton";
 import {PIZZA_TYPES} from "../../utils/pizzaTypes";
 import {Input} from "../../components/Input";
 import {Button} from "../../components/Button";
+import {useNavigation} from "@react-navigation/native";
 
 export function Order() {
   const [size, setSize] = useState("");
+  const navigation = useNavigation();
+
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container
       behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -15,7 +22,7 @@ export function Order() {
       <ContentScroll>
         <Header>
           <ButtonBack
-            onPress={() => {}}
+            onPress={handleGoBack}
           />
         </Header>
         <Photo source={{uri: "https://firebasestorage.googleapis.com/v0/b/gopizza-cecde.appspot.com/o/pizzas%2F1648226193281.png?alt=media&token=8c58e448-3542-4b63-8089-ac87b2997965"}} />
