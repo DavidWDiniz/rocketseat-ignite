@@ -9,6 +9,7 @@ import {useNavigation, useRoute} from "@react-navigation/native";
 import {OrderNavigationProps} from "../../@types/navigation";
 import firestore from "@react-native-firebase/firestore";
 import {ProductProps} from "../../components/ProductCard";
+import {useAuth} from "../../hooks/auth";
 
 type PizzaResponse = ProductProps & {
   price_sizes: {
@@ -19,12 +20,53 @@ type PizzaResponse = ProductProps & {
 export function Order() {
   const [size, setSize] = useState("");
   const [pizza, setPizza] = useState<PizzaResponse>({} as PizzaResponse);
+  const [quantity, setQuantity] = useState(0);
+  const [tableNumber, setTableNumber] = useState("");
+  const [sendingOrder, setSendingOrder] = useState(false);
+
+  const {user} = useAuth();
   const navigation = useNavigation();
   const route = useRoute();
   const {id} = route.params as OrderNavigationProps;
 
+  const amount = size ? pizza.price_sizes[size] * quantity : "0,00"
+
   function handleGoBack() {
     navigation.goBack();
+  }
+
+  function handleOrder() {
+    if (!size) {
+      return Alert.alert("Pedido", "Selecione o tamanho da pizza.");
+    }
+
+    if (!tableNumber) {
+      return Alert.alert("Pedido", "Informe o número da mesa.");
+    }
+
+    if (!quantity) {
+      return Alert.alert("Pedido", "Informe a quantidade.");
+    }
+
+    setSendingOrder(true);
+
+    firestore()
+      .collection("orders")
+      .add({
+        quantity,
+        amount,
+        pizza: pizza.name,
+        size,
+        table_number: tableNumber,
+        status: "Preparando",
+        waiter_id: user?.id,
+        image: pizza.photo_url
+      })
+      .then(() => navigation.navigate("home"))
+      .catch(() => {
+        Alert.alert("Pedido", "Não foi possível realizar o pedido.");
+        setSendingOrder(false);
+      })
   }
 
   useEffect(() => {
@@ -69,16 +111,20 @@ export function Order() {
           <FormRow>
             <InputGroup>
               <Label>Número da mesa</Label>
-              <Input keyboardType="numeric" />
+              <Input keyboardType="numeric" onChangeText={setTableNumber}/>
             </InputGroup>
 
             <InputGroup>
               <Label>Quantidade</Label>
-              <Input keyboardType="numeric" />
+              <Input keyboardType="numeric" onChangeText={(value) => setQuantity(Number(value))} />
             </InputGroup>
           </FormRow>
-          <Price>Valor de R$ 00,00</Price>
-          <Button title="Confirmar pedido" />
+          <Price>Valor de R$ {amount}</Price>
+          <Button
+            title="Confirmar pedido"
+            onPress={handleOrder}
+            isLoading={sendingOrder}
+          />
         </Form>
       </ContentScroll>
     </Container>
