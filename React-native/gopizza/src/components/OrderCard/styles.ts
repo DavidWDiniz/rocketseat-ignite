@@ -4,10 +4,10 @@ type ContainerProps = {
   index: number;
 }
 
-export type StatusTypeProps = "Preparando" | "Pronto" | "Entregue";
+export type StatusTypesProps = "Preparando" | "Pronto" | "Entregue";
 
 type StatusProps = {
-  status: StatusTypeProps
+  status: StatusTypesProps
 }
 
 export const Container = styled.TouchableOpacity<ContainerProps>`
