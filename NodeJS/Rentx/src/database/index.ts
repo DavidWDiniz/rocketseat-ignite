@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { DataSource } from "typeorm";
 
 const AppDataSource = new DataSource({
@@ -7,6 +8,8 @@ const AppDataSource = new DataSource({
   username: "docker",
   password: "ignite",
   database: "rentx",
+  migrations: ["./src/database/migrations/*.ts"],
+  entities: ["./src/modules/**/entities/*.ts"],
 });
 
 AppDataSource.initialize()
@@ -16,3 +19,5 @@ AppDataSource.initialize()
   .catch((err) => {
     console.error("Error during Data Source initialization", err);
   });
+
+export { AppDataSource };
