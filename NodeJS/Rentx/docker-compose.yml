@@ -1,7 +1,7 @@
 services:
   database:
     image: postgres
-    container_name: database
+    container_name: typeorm
     restart: always
     ports:
       - 5432:5432
