@@ -1,3 +1,5 @@
+import { inject, injectable } from "tsyringe";
+
 import { AppError } from "../../../../shared/errors/AppError";
 import { ICarsRepository } from "../../repositories/ICarsRepository";
 import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository";
@@ -7,10 +9,12 @@ interface IRequest {
   specifications_id: string[];
 }
 
+@injectable()
 class CreateCarSpecificationUseCase {
   constructor(
-    // @inject("CarsRepository")
+    @inject("CarsRepository")
     private carsRepository: ICarsRepository,
+    @inject("SpecificationsRepository")
     private specificationsRepository: ISpecificationsRepository
   ) {}
   async execute({ car_id, specifications_id }: IRequest) {
@@ -25,6 +29,7 @@ class CreateCarSpecificationUseCase {
     );
 
     await this.carsRepository.create(carExists);
+    return carExists;
   }
 }
 
