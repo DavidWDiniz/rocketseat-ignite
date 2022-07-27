@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { IDateProvider } from "../../../../shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "../../../../shared/errors/AppError";
+import { ICarsRepository } from "../../../cars/repositories/ICarsRepository";
 import { IRentalsRepository } from "../../repositories/IRentalsRepository";
 
 interface IRequest {
@@ -16,7 +17,9 @@ class CreateRentalUseCase {
     @inject("RentalsRepository")
     private rentalsRepository: IRentalsRepository,
     @inject("DayjsDateProvider")
-    private dateProvider: IDateProvider
+    private dateProvider: IDateProvider,
+    @inject("CarsRepository")
+    private carsRepository: ICarsRepository
   ) {}
 
   async execute({ car_id, expected_return_date, user_id }: IRequest) {
@@ -48,11 +51,15 @@ class CreateRentalUseCase {
       throw new AppError("Invalid return time!");
     }
 
-    return this.rentalsRepository.create({
+    const rental = await this.rentalsRepository.create({
       user_id,
       car_id,
       expected_return_date,
     });
+
+    await this.carsRepository.updateAvailable(user_id, false);
+
+    return rental;
   }
 }
 
