@@ -78,7 +78,8 @@ class CarsRepository implements ICarsRepository {
       .update()
       .set({ available })
       .where("id = :id")
-      .setParameters({ id });
+      .setParameters({ id })
+      .execute();
   }
 }
 
